@@ -37,7 +37,7 @@ public class PaymentService {
      
      public void Update(Payment payment) {
      	
-//       	 paymentRepository.put(payment);
+       	 paymentRepository.put(payment);
         	 	
         }
 

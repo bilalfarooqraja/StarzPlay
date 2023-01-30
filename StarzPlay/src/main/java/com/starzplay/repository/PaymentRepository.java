@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 import com.starzplay.entity.Payment;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
@@ -56,24 +57,15 @@ public class PaymentRepository{
 //		
 //		return list;
 //	}
-	
-	
-	
-	
-	//AddPayment with PaymentPlans
+
 	public void addPaymentandPaymentPlans(Payment payment) {
 	
-		
 		em.persist(payment);
 	}
 	
-     public Payment findByID(String type) {
-    	 return em.find(Payment.class, type);
+	public void put(Payment payment) {
+		em.merge(payment);
 	}
-     
-	public void put(String type) {
-		
-	}
-	
+
 	}
 
