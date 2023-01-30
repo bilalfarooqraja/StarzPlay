@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.starzplay.entity.Payment;
+import com.starzplay.entity.PaymentPlans;
 import com.starzplay.repository.PaymentRepository;
 
 
@@ -26,5 +27,18 @@ public class PaymentService {
     	
     	return paymentRepository.GetAll();
     }
+    
+     public void SaveAll(Payment payment) {
+    	
+   	 paymentRepository.addPaymentandPaymentPlans(payment);
+    	
+    	
+    }
+     
+     public void Update(Payment payment) {
+     	
+//       	 paymentRepository.put(payment);
+        	 	
+        }
 
 }

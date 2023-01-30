@@ -1,22 +1,16 @@
 package com.starzplay;
 
 import java.net.URI;
-import java.util.List;
 
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.starzplay.controller.PaymentController;
-import com.starzplay.entity.Payment;
-import com.starzplay.repository.PaymentRepository;
-
-@SpringBootApplication
+@ComponentScan({"com.starzplay"})
+@SpringBootApplication(scanBasePackages ="com.starzplay")
 public class StarzplayApplication {
 	
 	private org.slf4j.Logger logger =LoggerFactory.getLogger(this.getClass());

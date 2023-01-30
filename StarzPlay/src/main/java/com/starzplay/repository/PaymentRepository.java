@@ -1,18 +1,11 @@
 package com.starzplay.repository;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
-import org.springframework.data.jpa.repository.config.JpaRepositoryConfigExtension;
 import org.springframework.stereotype.Repository;
-
 import com.starzplay.entity.Payment;
-import com.starzplay.entity.PaymentPlans;
-
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
@@ -35,36 +28,52 @@ public class PaymentRepository{
 	
 	//GetAll
 	public List<Payment> GetAll() {
-		return em.createQuery("SELECT p FROM Payment p",Payment.class).getResultList();
+		
+		return em.createQuery("select p From Payment p",Payment.class).getResultList();
 	}
 	
-//	//AddPayment with PaymentPlans
-//	public void addPaymentandPaymentPlans(Payment payment,PaymentPlans paymentplans) {
-//	
+//	public List<Payment> GetAll() {
 //		
-//		payment.addPaymentplans(paymentplans);
-//		paymentplans.setPayment(payment);
-//
-//		em.persist(paymentplans);
-//		em.persist(payment);
+//		// select p From Payment
 //		
-//	}
-//	
-//	//Get Payment with PaymentPlans
-//	public Payment getPaymentwithPaymentPlans(String paymentType ) {
-//		Payment payment = em.find(Payment.class, paymentType);
-//		return (Payment) payment.getPaymentplans();
+//		// 1 Use Criteria Builder to Crete a Criteria Query
+//		
+//		CriteriaBuilder cb = em.getCriteriaBuilder();
+//		CriteriaQuery<Payment> cq = cb.createQuery(Payment.class);
+//		
+//		// 2 Define Roots of Tables involved in query
+//		Root<Payment> courseRoot = cq.from(Payment.class);
+//		
+//		//3 Define Predicates using Criteria Query
+//		
+//		//4 Add Predicates to Criteria Query
+//		
+//		//5 Build The Typed Query using the entity manager and criteria query
+//		
+//		TypedQuery<Payment> query = em.createQuery(cq.select(courseRoot));
+//		
+//		List<Payment> list = query.getResultList();
+//		
+//		return list;
 //	}
 	
-//	public void addPaymentPlansByPaymentType(String paymenttype,List<PaymentPlans> paymentplans) {
-//		
-//		Payment payment = em.find(Payment.class, paymenttype);
-//		
-//		for(PaymentPlans pp:paymentplans) {
-//			payment.addPaymentplans(paymentplans);
-//			pp.setPayment(payment);
-//			em.persist(pp);	
-//		}
-//		
+	
+	
+	
+	//AddPayment with PaymentPlans
+	public void addPaymentandPaymentPlans(Payment payment) {
+	
+		
+		em.persist(payment);
+	}
+	
+     public Payment findByID(String type) {
+    	 return em.find(Payment.class, type);
+	}
+     
+	public void put(String type) {
+		
+	}
+	
 	}
 

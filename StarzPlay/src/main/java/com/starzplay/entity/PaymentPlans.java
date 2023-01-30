@@ -1,19 +1,19 @@
 package com.starzplay.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name ="payment_plans")
+@Table(name ="paymentplans")
 public class PaymentPlans {
 
 	
@@ -22,36 +22,31 @@ public class PaymentPlans {
 	@Column(nullable = false)
 	private int id;
 	
-	@Column(nullable = false)
-	private float net_amount;
+	@Column(name="net_amount",nullable = false)
+	private float netAmount;
 	
-	@Column(nullable = false)
-	private float tax_amount;
+	@Column(name="tax_amount",nullable = false)
+	private float taxAmount;
 	
-	@Column(nullable = false)
-	private float gross_amount;
+	@Column(name="gross_amount",nullable = false)
+	private float grossAmount;
 	
 	@Column(nullable = false)
 	private String currency;
 	
 	@Column(nullable = false)
 	private String duration;
-	
-	@Column(name="payment_type",nullable = false)
-	private String payment_type;
-	
-	
-	@OneToOne(fetch = FetchType.LAZY)
+		
+	 @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	 @JsonBackReference
 	 @JoinColumn(name = "payment_type", insertable = false, updatable = false)
-	private Payment payment_method;
-	
-	
+	private Payment payment;
 	
 	public Payment getPayment() {
-		return payment_method;
+		return payment;
 	}
 	public void setPayment(Payment payment) {
-		this.payment_method = payment;
+		this.payment = payment;
 	}
 	
 	
@@ -59,12 +54,12 @@ public class PaymentPlans {
 			String duration, String payment_type) {
 		super();
 		this.id = id;
-		this.net_amount = net_amount;
-		this.tax_amount = tax_amount;
-		this.gross_amount = gross_amount;
+		this.netAmount = net_amount;
+		this.taxAmount = tax_amount;
+		this.grossAmount = gross_amount;
 		this.currency = currency;
 		this.duration = duration;
-		this.payment_type = payment_type;
+
 	}
 	public int getId() {
 		return id;
@@ -73,22 +68,22 @@ public class PaymentPlans {
 		this.id = id;
 	}
 	public float getNet_amount() {
-		return net_amount;
+		return netAmount;
 	}
 	public void setNet_amount(float net_amount) {
-		this.net_amount = net_amount;
+		this.netAmount = net_amount;
 	}
 	public float getTax_amount() {
-		return tax_amount;
+		return taxAmount;
 	}
 	public void setTax_amount(float tax_amount) {
-		this.tax_amount = tax_amount;
+		this.taxAmount = tax_amount;
 	}
 	public float getGross_amount() {
-		return gross_amount;
+		return grossAmount;
 	}
 	public void setGross_amount(float gross_amount) {
-		this.gross_amount = gross_amount;
+		this.grossAmount = gross_amount;
 	}
 	public String getCurrency() {
 		return currency;
@@ -102,13 +97,6 @@ public class PaymentPlans {
 	public void setDuration(String duration) {
 		this.duration = duration;
 	}
-	public String getPayment_type() {
-		return payment_type;
-	}
-	public void setPayment_type(String payment_type) {
-		this.payment_type = payment_type;
-	}
-	
 	
 	public PaymentPlans() {
 		

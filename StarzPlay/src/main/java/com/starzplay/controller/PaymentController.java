@@ -6,6 +6,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,6 +17,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.starzplay.entity.Payment;
+import com.starzplay.entity.PaymentPlans;
+import com.starzplay.repository.PaymentRepository;
 import com.starzplay.service.PaymentService;
 
 import ch.qos.logback.classic.pattern.Util;
@@ -38,6 +43,27 @@ public class PaymentController {
 	        	return new ResponseEntity<Object>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 	        }
 	    }
+
+	  @PostMapping
+	  public ResponseEntity<Object> post(@RequestBody Payment payment) {
+	
+		   try {
+			   paymentService.SaveAll(payment);
+	        	return new ResponseEntity<Object>( HttpStatus.OK);
+	        } catch (Exception ex) { 	
+	            logger.error(null, Util.match(null, null));
+	        	return new ResponseEntity<Object>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+	        } 
+	  }
+	  @PutMapping
+	  public ResponseEntity<Object> put(@RequestBody Payment payment) {
+		   try {
+			   paymentService.Update(payment);
+	        	return new ResponseEntity<Object>( HttpStatus.OK);
+	        } catch (Exception ex) { 	
+	            logger.error(null, Util.match(null, null));
+	        	return new ResponseEntity<Object>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+	        } 
+	  }
 	  
-//	  @PostMapping()
 }
